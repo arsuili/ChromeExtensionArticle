@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "name": "weixin_spider",
+  "version": "1.0.1",
+  "description": "weixin公众号采集",
+  "browser_action": {
+    "default_title": "微信公众号",
+    "default_icon": "./images/hello_extensions.png",
+    "default_popup": "popup.html"
+  },
+  "background": { "scripts": ["background.js"] },
+  "permissions": [
+    "tabs",
+    "notifications",
+    "alarms",
+    "https://weixin.sogou.com/*",
+    "http://mp.weixin.qq.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://weixin.sogou.com/"],
+      "js": ["jquery-1.8.3.min.js","list.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://weixin.sogou.com/weixin*", "http://mp.weixin.qq.com/*"],
+      "js": ["jquery-1.8.3.min.js","content_list.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    },
+    {
+      "matches": ["https://mp.weixin.qq.com/s*"],
+      "js": ["jquery-1.8.3.min.js","detail.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
