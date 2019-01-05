@@ -29,7 +29,7 @@
       "all_frames": true
     },
     {
-      "matches": ["https://mp.weixin.qq.com/s*"],
+      "matches": ["https://mp.weixin.qq.com/s*", "http://community.test/*"],
       "js": ["jquery-1.8.3.min.js","detail.js"],
       "run_at": "document_end"
     }

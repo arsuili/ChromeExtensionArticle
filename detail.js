@@ -1,10 +1,20 @@
 
 $(document).ready(function () {
-   console.log('这里是详情页!');
    let title = $('h2#activity-name').text();
-   console.log('title:', title);
    let author = $('a#js_name').text();
-   console.log('author', author);
    let content = $('#js_content').html();
-   console.log('content', content);
+   $.ajax({
+      type: "POST",
+      url: "http://community.test/api/article",
+      data: {
+         title: title,
+         author: author
+      },
+      success: function(ret){
+         console.log(ret);
+      },
+      error: function (err) {
+         console.log(err);
+      }
+   });
 });
