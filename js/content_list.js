@@ -1,63 +1,43 @@
 
 $(document).ready(function(){
+    console.log('进入公众号列表');
     var List = $('.news-list2>li p.tit>a');
     // 获取页码数
-    var page = localStorage.getItem('page');
-    if(!page)
-        page = getParam('page');
-    if(!page)
-        page = 1;
+    var page = localStorage.getItem('page') ?
+    localStorage.getItem('page') : (getParam('page') ? getParam('page') : 1);
+    console.log('页码数，page:', page);
     // 设置页面数
     localStorage.setItem('page', page);
-    console.log('page:', page);
-    // 循环公众号列表
-    var listId = localStorage.getItem('listId');
+
     // 获取列表索引数
-    if(!listId)
-        listId = 0;
-    console.log('listId:', listId);
+    var listId = localStorage.getItem('listId') ?
+    localStorage.getItem('listId') : 0;
+    // 循环公众号列表
     List.each(function (i,k) {
+        console.log('列表ID，listId:', listId);
         if(i == listId) {
             console.log('进入这里了吗?');
-            localStorage.setItem('listId', parseInt(i)+1);
             $(this).attr('target', '');
             var self = this;
             // 跳转到详情页
             setTimeout(function () {
-                console.log(self);
+                // 点击进入公众号文章列表
+                listId = parseInt(i)+1;
+                localStorage.setItem('listId', listId);
                 self.click();
             },1000)
         }else{
+            console.log('切换下一页');
             localStorage.setItem('listId', 0);
             // 跳转下一页
             setTimeout(function () {
-                locationNext()
+                locationNext();
             }, 2000);
         }
     });
 
-    // 公众号文章列表页操作
-    setTimeout(function () {
-        getList();
-    }, 2000)
-
 });
 
-// 进入公众号文章列表页
-function getList() {
-    console.log('文章列表页', 'aaa');
-    var titleList = $('h4.weui_media_title');
-    titleList.each(function (i, k) {
-        if (i == 0) {
-            let hrefs = $(k).attr('hrefs');
-            console.log(hrefs);
-            setTimeout(function () {
-                window.location.href = hrefs;
-            }, 2000);
-        }
-    })
-    // window.history.back();
-}
 
 // 跳转下一页
 function locationNext() {

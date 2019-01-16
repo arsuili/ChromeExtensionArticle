@@ -8,29 +8,42 @@
     "default_icon": "./images/hello_extensions.png",
     "default_popup": "popup.html"
   },
-  "background": { "scripts": ["background.js"] },
+  "background": {
+    "scripts": ["injection/jquery-1.8.3.min.js","background.js"],
+    "persistent": true
+  },
   "permissions": [
     "tabs",
     "notifications",
     "alarms",
+    "storage",
     "https://weixin.sogou.com/*",
-    "http://mp.weixin.qq.com/*"
+    "http://mp.weixin.qq.com/*",
+    "https://mp.weixin.qq.com/*"
+  ],
+  "web_accessible_resources": [
+    "injection/jquery-1.8.3.min.js",
+    "injection/spider.js"
   ],
   "content_scripts": [
     {
       "matches": ["https://weixin.sogou.com/"],
-      "js": ["jquery-1.8.3.min.js","list.js"],
+      "js": ["injection/jquery-1.8.3.min.js","js/search_list.js"],
       "run_at": "document_end"
     },
     {
-      "matches": ["https://weixin.sogou.com/weixin*", "http://mp.weixin.qq.com/*"],
-      "js": ["jquery-1.8.3.min.js","content_list.js"],
-      "run_at": "document_end",
-      "all_frames": true
+      "matches": ["https://weixin.sogou.com/weixin*"],
+      "js": ["injection/jquery-1.8.3.min.js","js/content_list.js"],
+      "run_at": "document_end"
     },
     {
-      "matches": ["https://mp.weixin.qq.com/s*", "http://community.test/*"],
-      "js": ["jquery-1.8.3.min.js","detail.js"],
+      "matches": ["http://mp.weixin.qq.com/*", "http://mp.weixin.qq.com/profile*", "http://community.test/api/user/register"],
+      "js": ["injection/jquery-1.8.3.min.js","js/article_list.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://mp.weixin.qq.com/s*", "http://www.kuaidi100.com/*", "http://community.test/api/article*"],
+      "js": ["injection/jquery-1.8.3.min.js","js/detail.js"],
       "run_at": "document_end"
     }
   ]
