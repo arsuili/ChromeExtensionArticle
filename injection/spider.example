@@ -1,23 +1,25 @@
 // 文章入库操作js
 $(document).ready(function () {
     console.log('这是注入的js脚本');
+    // 获取微信公众号文章列表变量
     let msgList = window.msgList.list;
 
-    let author = $('.profile_nickname').text();
-    let wechat_number = $('.profile_account').text();
-    let desc = $('.profile_desc_value').attr('title');
-    let headimg = $('.radius_avatar img').attr('src');
+    let author = $('.profile_nickname').text(); // 作者，公众号名称
+    let wechat_number = $('.profile_account').text();   // 公众号微信号
+    let desc = $('.profile_desc_value').attr('title');  // 公众号描述
+    let headimg = $('.radius_avatar img').attr('src');  // 公众号头像
 
-    $.post("http://yourweb.com/api/user/register", {
+    // 注册公众号为作者账号并获取作者ID
+    $.post("http://yourweb.com/api", {
         author,
         wechat_number,
         desc,
         headimg
     }, function (res) {
         if(res.code == 0) {
+            // 作者ID
             let uid = res.data.uid;
             // 循环文章列表
-            console.log(msgList);
             for (let i in msgList) {
                 let itemList = msgList[i].app_msg_ext_info.multi_app_msg_item_list;
                 let publish = msgList[i].comm_msg_info.datetime;
@@ -29,7 +31,8 @@ $(document).ready(function () {
                 }
                 for (let j in itemList) {
                     let item = itemList[j];
-                    $.post("http://yourweb.com/api/article/createArticle", {
+                    // 将每一条文章信息推送至服务器
+                    $.post("http://yourweb.com/api/article", {
                         content_url: item.content_url,
                         cover: item.cover,
                         digest: item.digest,
