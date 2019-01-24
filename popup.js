@@ -25,6 +25,7 @@ $(document).ready(function(){
     });
 });
 
+// 发送消息到content_script
 function sendMessageToContentScript(message, callback)
 {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs)

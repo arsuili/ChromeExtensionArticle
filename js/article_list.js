@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-
+    console.log('进入公众号文章列表');
     //创建一个元素
     var script = document.createElement('script');
     var script1 = document.createElement('script');
@@ -13,16 +13,11 @@ $(document).ready(function () {
     document.body.append(script);
     setTimeout(function () {
         document.body.append(script1);
-    }, 500);
-
-    console.log('进入公众号文章列表');
-    setTimeout(function () {
-        getList();
-    }, 1500)
+    }, 3000);
 });
 
 
-// 进入公众号文章列表页
+// 公众号文章列表处理函数
 function getList() {
     console.log('文章列表页', 'aaa111');
     let author = $('.profile_nickname').text();
@@ -31,7 +26,7 @@ function getList() {
     let headimg = $('.radius_avatar img').attr('src');
     console.log(headimg);
     console.log('作者', author);
-    // 获取作者ID
+    // 创建或查询作者id,使用消息传递
     /*chrome.runtime.sendMessage({
         type: "POST",
         // url: "http://www.kuaidi100.com/query?type=yuantong&postid=123456",

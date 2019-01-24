@@ -37,12 +37,16 @@
       "run_at": "document_end"
     },
     {
-      "matches": ["http://mp.weixin.qq.com/*", "http://mp.weixin.qq.com/profile*", "http://community.test/api/user/register"],
+      "matches": [
+        "http://mp.weixin.qq.com/*",
+        "http://mp.weixin.qq.com/profile*",
+        "https://mp.weixin.qq.com/profile*"
+      ],
       "js": ["injection/jquery-1.8.3.min.js","js/article_list.js"],
       "run_at": "document_end"
     },
     {
-      "matches": ["https://mp.weixin.qq.com/s*", "http://www.kuaidi100.com/*", "http://community.test/api/article*"],
+      "matches": ["https://mp.weixin.qq.com/s*", "http://www.kuaidi100.com/*"],
       "js": ["injection/jquery-1.8.3.min.js","js/detail.js"],
       "run_at": "document_end"
     }

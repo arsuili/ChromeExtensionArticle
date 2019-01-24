@@ -1,10 +1,9 @@
-
+// 搜索公众号关键字列表页
 $(document).ready(function(){
     console.log('进入公众号列表');
     var List = $('.news-list2>li p.tit>a');
     // 获取页码数
-    var page = localStorage.getItem('page') ?
-    localStorage.getItem('page') : (getParam('page') ? getParam('page') : 1);
+    var page = (getParam('page') ? getParam('page') : 1);
     console.log('页码数，page:', page);
     // 设置页面数
     localStorage.setItem('page', page);
@@ -12,11 +11,14 @@ $(document).ready(function(){
     // 获取列表索引数
     var listId = localStorage.getItem('listId') ?
     localStorage.getItem('listId') : 0;
+    // localStorage.setItem('listId', 0);
+    console.log('列表ID，listId:', listId);
+    // return;
     // 循环公众号列表
     List.each(function (i,k) {
         console.log('列表ID，listId:', listId);
         if(i == listId) {
-            console.log('进入这里了吗?');
+            console.log('获取公众号文章列表链接地址');
             $(this).attr('target', '');
             var self = this;
             // 跳转到详情页
@@ -25,14 +27,14 @@ $(document).ready(function(){
                 listId = parseInt(i)+1;
                 localStorage.setItem('listId', listId);
                 self.click();
-            },1000)
+            },5000)
         }else{
-            console.log('切换下一页');
+            console.log('切换下一页并还原listID');
             localStorage.setItem('listId', 0);
             // 跳转下一页
             setTimeout(function () {
                 locationNext();
-            }, 2000);
+            }, 3000);
         }
     });
 
@@ -41,15 +43,18 @@ $(document).ready(function(){
 
 // 跳转下一页
 function locationNext() {
-    var page = getParam('page');
+    var page = (getParam('page') ? getParam('page') : 1);
     console.log('本页页码数:', page);
     $('#pagebar_container a').each(function (i,k) {
         if(parseInt($(k).text()) == parseInt(page)+1){
+            // 设置页面数
+            let current_page = parseInt($(k).text());
+            localStorage.setItem('page', current_page);
             var self = this;
             setTimeout(function () {
                 console.log('下一页链接地址:', $(self).attr('href'));
-                // self.click();
-            }, 3000)
+                self.click();
+            }, 4000)
         }
     })
 }
